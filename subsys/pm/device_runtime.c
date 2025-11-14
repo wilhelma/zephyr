@@ -334,7 +334,7 @@ static int put_sync_locked(const struct device *dev)
 		if (flags & BIT(PM_DEVICE_FLAG_PD_CLAIMED)) {
 			const struct device *domain = PM_DOMAIN(&pm->base);
 
-			if (domain->pm_base->flags & BIT(PM_DEVICE_FLAG_ISR_SAFE)) {
+			if (domain != nullptr && domain->pm_base->flags & BIT(PM_DEVICE_FLAG_ISR_SAFE)) {
 				ret = put_sync_locked(domain);
 				pm->base.flags &= ~BIT(PM_DEVICE_FLAG_PD_CLAIMED);
 			} else {
